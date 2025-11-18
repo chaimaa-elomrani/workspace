@@ -52,30 +52,30 @@
             +
           </button>
 
-          <button
+          <button onclick="showForm()"
             class="absolute bottom-36 left-32 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
-          <button
+          <button onclick="showForm()"
             class="absolute top-24 right-80 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
-          <button
+          <button onclick="showForm()"
             class="absolute top-24 right-24 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
-          <button
+          <button onclick="showForm()"
             class="absolute bottom-[15%] right-[7.5%] bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
-          <button
+          <button onclick="showForm()"
             class="absolute bottom-[15%] right-[30%] bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
@@ -99,7 +99,7 @@
                 
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Role *</label>
-                        <input type="text" id="position" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <input type="text" id="role" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     </div>
                     
                     <div>
@@ -131,7 +131,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-4">Phone number</label>
-                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <input type="text" id="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
 
                <!-- Expériences Professionnelles -->
@@ -165,7 +165,6 @@
         </div>
     </main>
 
-
     <script>
         const modal = document.getElementById('modal');
         function showForm(){
@@ -177,6 +176,34 @@
             modal.classList.remove('block')
             modal.classList.add('hidden');
         }
+
+        document.getElementById('photo').addEventListener('input', (e)=>{
+            const url = e.target.value;
+            const profile = document.getElementById('photoPreview');
+            profile.innerHTML = ` <img src="${url}" alt="profile" class= "w-16 h-16 text-gray-400">`
+        })
+
+        const employers = [];
+        const form = document.getElementById('userForm');
+        const Fullname = document.getElementById('fullName');
+        const role = document.getElementById('role');
+        const photo = document.getElementById('photo');
+        const email = document.getElementById('email');
+        const number = document.getElementById('number');
+
+        form.addEventListener('submit',(event)=>{
+            event.preventDefault();
+            const submitedData = {
+                name: Fullname.value,
+                role : role.value,
+                photo: photo.value,
+                email:email.value, 
+                number: number.value
+            };
+            employers.push(submitedData); 
+            console.log(employers); 
+        });
+        
     </script>
   </body>
 </html>
