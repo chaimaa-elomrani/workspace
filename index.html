@@ -290,11 +290,34 @@
           photo: photo.value,
           email: email.value,
           number: number.value,
+          experiences : []
         };
+
+        const experienceGrp = document.querySelectorAll("#experiencesContainer > div");
+
+      experienceGrp.forEach((expDiv)=> {
+        const company = expDiv.querySelector('input[name^="exp_company_"]').value; 
+        const position = expDiv.querySelector('input[name^="exp_position_"]').value; 
+        const start = expDiv.querySelector('input[name^="exp_start_"]').value; 
+        const end = expDiv.querySelector('input[name^="exp_end_"]').value; 
+        
+        submitedData.experiences.push({
+          company, 
+          position, 
+          start, 
+          end,
+        });
+      });
         employers.push(submitedData);
         console.log(employers);
+        form.reset(); 
+        document.getElementById("experiencesContainer").innerHTML = ""; 
+        document.getElementById("photoPreview").innerHTML = `<svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>`; 
+
+  closeModal(); 
       });
 
+  
       let experienceCounter = 0;
 
       // Experiences
