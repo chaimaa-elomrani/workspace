@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Office Floor Plan Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
-  </head>
 
     <style>
       #bg {
         background-image: url(/image/plan-69159a65c5684763515973.jpg);
       }
     </style>
+  </head>
 
   <body class="bg-gray-100 h-screen overflow-hidden">
     <main class="flex h-full">
@@ -22,6 +22,7 @@
             Click on rooms to assign members
           </p>
         </div>
+
         <div id="usersList" class="p-4 space-y-3"></div>
       </div>
 
@@ -46,36 +47,43 @@
           <div class="bg-red-400/40 border-8 border-black"></div>
           <div class="bg-red-400/80 border-t-8 border-black"></div>
 
-          <button onclick="showForm()"
+          <button
+            onclick="showForm()"
             class="absolute top-4 left-32 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
-          <button onclick="showForm()"
+          <button
+            onclick="showForm()"
             class="absolute bottom-36 left-32 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
-          <button onclick="showForm()"
+          <button
+            onclick="showForm()"
             class="absolute top-24 right-80 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
-          <button onclick="showForm()"
+          <button
+            onclick="showForm()"
             class="absolute top-24 right-24 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
-          <button onclick="showForm()"
+          <button
+            onclick="showForm()"
             class="absolute bottom-[15%] right-[7.5%] bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
-          <button onclick="showForm()"
+
+          <button
+            onclick="showForm()"
             class="absolute bottom-[15%] right-[30%] bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
@@ -83,127 +91,277 @@
         </div>
       </section>
 
-      <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4">
-            <div class="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
-                <h3 class="text-2xl font-bold text-gray-800">Add Member to <span id="roomName" class="text-blue-600"></span></h3>
-                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-            </div>
-            
-            <form id="userForm" class="p-6 space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
-                    <input type="text" id="fullName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
+      <!-- Modal -->
+      <div
+        id="modal"
+        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <div
+          class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4"
+        >
+          <div
+            class="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center"
+          >
+            <h3 class="text-2xl font-bold text-gray-800">
+              Add Member to <span id="roomName" class="text-blue-600"></span>
+            </h3>
+            <button
+              onclick="closeModal()"
+              class="text-gray-500 hover:text-gray-700 text-2xl"
+            ></button>
+          </div>
 
-                
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Role *</label>
-                        <input type="text" id="role" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    </div>
-                    
-                    <div>
-                <label for="photo" class="block text-sm font-semibold text-gray-700 mb-2">
-                    URL de la Photo <span class="text-red-500">*</span>
-                </label>
-               
-                <div class="flex gap-4">
-                     <input 
-                    type="url" 
-                    id="photo" 
-                    name="photo"
-                    required    
-                    class="w-full h-1/2 px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 transition duration-200 self-center"
-                    placeholder="https://exemple.com/photo.jpg"
-                >
-                <div class="">
-                    <div id="photoPreview" class="w-12 h-12 mt-4 mb-4 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-blue-500">
-                        <svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                </div>
+          <form id="userForm" class="p-6 space-y-4">
+            <div>
+              <label
+                class="block text-sm font-semibold text-gray-700 mb-2"
+                >Full Name *</label
+              >
+              <input
+                type="text"
+                id="fullName"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
             </div>
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-4">Email</label>
-                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 mb-4 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-4">Phone number</label>
-                    <input type="text" id="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
+            <div>
+              <label
+                class="block text-sm font-semibold text-gray-700 mb-2"
+                >Role *</label
+              >
+              <input
+                type="text"
+                id="role"
+                required
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
 
-               <!-- Expériences Professionnelles -->
-            <div class="border-2 border-gray-200 rounded-xl p-4 mt-6">
-                <div class="flex justify-between items-center mb-4">
-                    <label class="text-sm font-semibold text-gray-700">
-                        Expériences Professionnelles
-                    </label>
-                    <button 
-                        type="button" 
-                        id="addExperience"
-                        class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-200 flex items-center gap-2"
+            <div>
+              <label
+                for="photo"
+                class="block text-sm font-semibold text-gray-700 mb-2"
+              >
+                URL de la Photo <span class="text-red-500">*</span>
+              </label>
+
+              <div class="flex gap-4">
+                <input
+                  type="url"
+                  id="photo"
+                  name="photo"
+                  required
+                  class="w-full h-1/2 px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 transition duration-200 self-center"
+                  placeholder="https://exemple.com/photo.jpg"
+                />
+
+                <div>
+                  <div
+                    id="photoPreview"
+                    class="w-12 h-12 mt-4 mb-4 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-blue-500"
+                  >
+                    <svg
+                      class="w-16 h-16 text-gray-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
                     >
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                        </svg>
-                        Ajouter
-                    </button>
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
                 </div>
-
-                <div id="experiencesContainer" class="space-y-4">
-                    <!-- Expérience template sera ajoutée dynamiquement -->
-                </div>
+              </div>
             </div>
 
-                <div class="flex justify-end gap-3 pt-4">
-                    <button type="button" onclick="closeModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-semibold">Cancel</button>
-                    <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold">Add Member</button>
-                </div>
-            </form>
+            <div>
+              <label
+                class="block text-sm font-semibold text-gray-700 mb-4"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                class="w-full px-4 py-2 border border-gray-300 mb-4 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            <div>
+              <label
+                class="block text-sm font-semibold text-gray-700 mb-4"
+                >Phone number</label
+              >
+              <input
+                type="text"
+                id="number"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            <!-- Experiences -->
+            <div class="border-2 border-gray-200 rounded-xl p-4 mt-6">
+              <div class="flex justify-between items-center mb-4">
+                <label class="text-sm font-semibold text-gray-700">
+                  Expériences Professionnelles
+                </label>
+
+                <button
+                  type="button"
+                  id="addExperience"
+                  class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-200 flex items-center gap-2"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                  Ajouter
+                </button>
+              </div>
+
+              <div id="experiencesContainer" class="space-y-4"></div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4">
+              <button
+                type="button"
+                onclick="closeModal()"
+                class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-semibold"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold"
+              >
+                Add Member
+              </button>
+            </div>
+          </form>
         </div>
+      </div>
     </main>
 
     <script>
-        const modal = document.getElementById('modal');
-        function showForm(){
-            modal.classList.remove('hidden')
-            modal.classList.add('block');
-        }
-        
-        function closeModal(){
-            modal.classList.remove('block')
-            modal.classList.add('hidden');
-        }
+      const modal = document.getElementById("modal");
 
-        document.getElementById('photo').addEventListener('input', (e)=>{
-            const url = e.target.value;
-            const profile = document.getElementById('photoPreview');
-            profile.innerHTML = ` <img src="${url}" alt="profile" class= "w-16 h-16 text-gray-400">`
-        })
+      function showForm() {
+        modal.classList.remove("hidden");
+        modal.classList.add("block");
+      }
 
-        const employers = [];
-        const form = document.getElementById('userForm');
-        const Fullname = document.getElementById('fullName');
-        const role = document.getElementById('role');
-        const photo = document.getElementById('photo');
-        const email = document.getElementById('email');
-        const number = document.getElementById('number');
+      function closeModal() {
+        modal.classList.remove("block");
+        modal.classList.add("hidden");
+      }
 
-        form.addEventListener('submit',(event)=>{
-            event.preventDefault();
-            const submitedData = {
-                name: Fullname.value,
-                role : role.value,
-                photo: photo.value,
-                email:email.value, 
-                number: number.value
-            };
-            employers.push(submitedData); 
-            console.log(employers); 
+      // Image preview
+      document.getElementById("photo").addEventListener("input", (e) => {
+        const url = e.target.value;
+        const profile = document.getElementById("photoPreview");
+        profile.innerHTML = `<img src="${url}" alt="profile" class="w-16 h-16 text-gray-400">`;
+      });
+
+      const employers = [];
+      const form = document.getElementById("userForm");
+      const Fullname = document.getElementById("fullName");
+      const role = document.getElementById("role");
+      const photo = document.getElementById("photo");
+      const email = document.getElementById("email");
+      const number = document.getElementById("number");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const submitedData = {
+          name: Fullname.value,
+          role: role.value,
+          photo: photo.value,
+          email: email.value,
+          number: number.value,
+        };
+        employers.push(submitedData);
+        console.log(employers);
+      });
+
+      let experienceCounter = 0;
+
+      // Experiences
+      document
+        .getElementById("addExperience")
+        .addEventListener("click", (e) => {
+          experienceCounter++;
+          const exp_container = document.getElementById(
+            "experiencesContainer"
+          );
+          const content = document.createElement("div");
+          content.className = "bg-gray-50 p-4 rounded-lg space-y-3 relative";
+          content.innerHTML = `
+            <button type="button" class="absolute top-2 right-2 text-red-500 hover:text-red-700 remove-exp" data-exp="${experienceCounter}">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+
+            <input 
+              type="text" 
+              name="exp_company_${experienceCounter}"
+              class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Entreprise"
+              required
+            >
+
+            <input 
+              type="text" 
+              name="exp_position_${experienceCounter}"
+              class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Poste occupé"
+              required
+            >
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs text-gray-600 mb-1">Date de début</label>
+                <input 
+                  type="date" 
+                  name="exp_start_${experienceCounter}"
+                  class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 exp-start"
+                  required
+                >
+              </div>
+              <div>
+                <label class="block text-xs text-gray-600 mb-1">Date de fin</label>
+                <input 
+                  type="date" 
+                  name="exp_end_${experienceCounter}"
+                  class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 exp-end"
+                  data-start="exp_start_${experienceCounter}"
+                  required
+                >
+                <span class="text-red-500 text-xs mt-1 hidden date-error">La date de fin doit être après la date de début</span>
+              </div>
+            </div>
+          `;
+          exp_container.appendChild(content);
         });
-        
+
+
+        document.addEventListener('click', (e) =>{
+          if(e.target.closest('.remove-exp')){
+            e.target.closest('.bg-gray-50').remove();
+          }
+        });
     </script>
   </body>
 </html>
