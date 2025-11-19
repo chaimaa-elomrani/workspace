@@ -19,7 +19,15 @@
         <div class="p-6 border-b">
           <h2 class="text-2xl font-bold text-gray-800">Team Members</h2>
         </div>
-
+           <button
+                onclick="showForm()"
+                class="w-[80%] py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 font-semibold flex items-center justify-center gap-2 m-4 "
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Create New Employee
+              </button>
         <div id="usersList" class="p-4 space-y-3"></div>
       </div>
 
@@ -45,42 +53,42 @@
           <div id="vault" class="bg-red-400/80 border-t-8 border-black">Vault</div>
 
           <button
-            onclick="showForm()"
+            onclick="showAssignModal()"
             class="absolute top-4 left-32 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
           <button
-            onclick="showForm()"
+            onclick="showAssignModal()"
             class="absolute bottom-36 left-32 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
           <button
-            onclick="showForm()"
+            onclick="showAssignModal()"
             class="absolute top-24 right-80 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
           <button
-            onclick="showForm()"
+            onclick="showAssignModal()"
             class="absolute top-24 right-24 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
           <button
-            onclick="showForm()"
+            onclick="showAssignModal()"
             class="absolute bottom-[15%] right-[7.5%] bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
           </button>
 
           <button
-            onclick="showForm()"
+            onclick="showAssignModal()"
             class="absolute bottom-[15%] right-[30%] bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg transform hover:scale-105 transition"
           >
             +
@@ -92,7 +100,7 @@
       <div
         id="modal"
         class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-      >
+       >
         <div
           class="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4"
         >
@@ -265,11 +273,31 @@
           </form>
         </div>
       </div>
+
+       <div
+        id="assignModal"
+        class=" hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+      <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto m-4">
+        <div class="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
+          <h3 class="text-2xl font-bold text-gray-800">
+            Assign Employee to <span id="assignRoomName" class="text-blue-600"></span>
+          </h3>
+          <button
+          onclick="closeAssignModal()"
+          class="text-gray-500 hover:text-gray-700 text-2xl"
+          >×</button>
+        </div>
+        <div id="employeeSelectionList" class="p-6 space-y-3"></div>
+      
+      </div>
+
+        
     </main>
 
     <script>
       const modal = document.getElementById("modal");
-
+      const assignModal = document.getElementById('assignModal');
       function showForm() {
         modal.classList.remove("hidden");
         modal.classList.add("block");
@@ -278,6 +306,15 @@
       function closeModal() {
         modal.classList.remove("block");
         modal.classList.add("hidden");
+      }
+
+      function showAssignModal(){
+        assignModal.classList.remove("hidden"); 
+        displayEmployeeSelection();
+      }
+      
+      function closeAssignModal(){
+        assignModal.classList.add("hidden"); 
       }
 
       // Image preview
@@ -497,7 +534,44 @@ function displayEmployees() {
   });
 }
 
-displayEmployees();
-    </script>
+     displayEmployees();
+
+    
+     const listContainer = document.getElementById('assignModal');
+     
+     function displayEmployeeSelection(){
+  const listContainer = document.getElementById('employeeSelectionList');
+  listContainer.innerHTML = ''; // Clear previous content
+  
+  employers.forEach((employee, index) => {
+    const card = document.createElement('div');
+    card.className = 'bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer';
+    card.innerHTML = `
+      <div class="flex items-center gap-4">
+        <img 
+          src="${employee.photo}" 
+          alt="${employee.name}"
+          class="w-16 h-16 rounded-full object-cover border-2 border-blue-500"
+          onerror="this.src='https://via.placeholder.com/64'"
+        >
+        <div class="flex-1">
+          <h4 class="font-semibold text-gray-800">${employee.name}</h4>
+          <p class="text-sm text-blue-600">${employee.role}</p>
+          <p class="text-xs text-gray-500">${employee.email}</p>
+        </div>
+        <button 
+          onclick="assignEmployee(${index})"
+          class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+        >
+          Assign
+        </button>
+      </div>
+    `;
+    listContainer.appendChild(card);
+  });
+}
+        
+        
+        </script>
   </body>
 </html>
