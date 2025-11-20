@@ -324,6 +324,15 @@ function assignEmployee(empId){
         <p class="text-xs font-semibold">${employee.name}</p>
         <p class="text-xs text-gray-600">${employee.role}</p>
       </div>
+      <button 
+        onclick="unassignEmployee(${empId}, '${currentRoomId}')"
+        class="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-md transition-all duration-200 hover:scale-110"
+        title="Remove ${employee.name} from ${currentRoomId}"
+      >
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
     </div>
     `;
 
