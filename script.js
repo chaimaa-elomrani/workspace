@@ -281,12 +281,38 @@ function displayEmployees() {
 }
         
 
+const employeAssignments = {}; 
 function assignEmployee(empId){
     const employee = employers[empId];
     const room = document.getElementById(currentRoomId);
+
+    if(!room){
+        console.error('Room not found with ID:', currentRoomId);
+        alert('error in the condition !room');
+        return ;
+    }
+
+    if(employeAssignments[empId]){
+        const previousRoom = employeAssignments[empId]; 
+        const confirmation = confirm(`${employee.name} is currently in ${previousRoom}, move them to ${currentRoomId}?`);
+
+        if(!confirmation){
+            return ; 
+        }
+
+        const oldRoom = document.getElementById(previousRoom); 
+        if(oldRoom){
+            const oldCard = document.querySelector(`[data-type-id = "${empId}"]`);
+            if(oldCard){
+                oldCard.remove();
+            }
+        }
+    }
+
     console.log(room);
     const empCard = document.createElement('div');
     empCard.className = 'absolute bottom-2 left-2 bg-white rounded-lg shadow-lg p-2';
+    empCard.setAttribute('data-type-id' , empId); 
     empCard.innerHTML = `
         <div class="flex items-center gap-2">
       <img 
@@ -303,7 +329,9 @@ function assignEmployee(empId){
 
     room.style.position = 'relative';
     room.appendChild(empCard);
-
+    employeAssignments[empId] = currentRoomId; 
     closeAssignModal(); 
 
 }
+
+ 
