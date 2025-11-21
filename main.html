@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workspace Plan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <section class="relative w-full h-screen overflow-hidden">
+    <img
+      src="/image/plan-69159a65c5684763515973.jpg"
+      alt="worksphere"
+      class="w-full h-full absolute object-cover opacity-90"
+    />
+
+    <div class="absolute backdrop-blur-[1px]"></div>
+
+    <div class="absolute inset-0 grid grid-cols-[38.2%_16%_23%_22.6%] grid-rows-[34%_32.8%_33.1%]">
+      
+      <div id="conferences" class="room-area border border-gray-300/60 bg-white/20">
+        <span class="room-label">Conference Room</span>
+        <button
+          onclick="showAssignModal('conferences')"
+          class="add-button absolute top-3 right-3 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600"
+        >+</button>
+      </div>
+
+      <div class="row-span-3 border-l border-gray-300/40"></div>
+
+      <div id="servers" class="room-area border border-gray-300/60 bg-white/20">
+        <span class="room-label">Servers</span>
+        <button
+          onclick="showAssignModal('servers')"
+          class="add-button absolute top-3 right-3 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600"
+        >+</button>
+      </div>
+
+      <div id="security" class="room-area border-b border-gray-300/60 bg-white/20">
+        <span class="room-label">Security</span>
+        <button
+          onclick="showAssignModal('security')"
+          class="add-button absolute top-3 right-3 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600"
+        >+</button>
+      </div>
+
+      <div id="reception" class="room-area row-span-2 border-2 border-gray-400/60 bg-white/30">
+        <span class="room-label text-base">Reception</span>
+        <button
+          onclick="showAssignModal('reception')"
+          class="add-button absolute top-3 right-3 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600"
+        >+</button>
+      </div>
+
+      <div class="col-span-2 border border-gray-300/40"></div>
+
+      <div id="staff" class="room-area border-2 border-gray-400/60 bg-white/30">
+        <span class="room-label">Staff Room</span>
+        <button
+          onclick="showAssignModal('staff')"
+          class="add-button absolute top-3 right-3 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600"
+        >+</button>
+      </div>
+
+      <div id="vault" class="room-area border-t-2 border-gray-400/60 bg-gray-800/20">
+        <span class="room-label text-gray-700">Vault</span>
+        <button
+          onclick="showAssignModal('vault')"
+          class="add-button absolute top-3 right-3 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600"
+        >+</button>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+   
+  </script>
+
+</body>
+</html>
