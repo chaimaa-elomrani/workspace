@@ -749,7 +749,19 @@ displayEmployees();
   }
 
 
+//   unassign employe 
+ function unassignEmployee(empId, roomId){
+    const room = document.getElementById(roomId);
+    const card = room.querySelector(`[data-type-id = "${empId}"]`); 
 
+    if(card){
+      card.remove(); 
+      delete employeAssignments[empId];
+      console.log('removed successfuly');
+    }
+  }
+  
+  
 
   </script>
 
