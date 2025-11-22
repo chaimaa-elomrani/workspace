@@ -299,6 +299,25 @@
           </form>
         </div>
       </div>
+
+      <!-- assufn modak -->
+      <div
+        id="assignModal"
+        class=" hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      >
+      <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto m-4">
+        <div class="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
+          <h3 class="text-2xl font-bold text-gray-800">
+            Assign Employee to <span id="assignRoomName" class="text-blue-600"></span>
+          </h3>
+          <button
+          onclick="event.stopPropagation(); closeAssignModal()"
+          class="text-gray-500 hover:text-gray-700 text-2xl"
+          >×</button>
+        </div>
+        <div id="employeeSelectionList" class="p-6 space-y-3"></div>
+      
+      </div>
   <script>
 
     // sidebar
@@ -323,19 +342,30 @@
 
     // assign userform
       const modal = document.getElementById("modal");
-        // const assignModal = document.getElementById('assignModal');
-        function showForm() {
+      function showForm() {
           modal.classList.remove("hidden");
           modal.classList.add("block");
         }
-
+        
         function closeModal() {
-          modal.classList.remove("block");
-          modal.classList.add("hidden");
+            modal.classList.remove("block");
+            modal.classList.add("hidden");
+        }
+        
+        const assignModal = document.getElementById('assignModal');
+        let currentRoomId = 'test' ; 
+
+         function showAssignModal(roomId){
+            currentRoomId = roomId;
+            const roomName = document.getElementById('assignRoomName');
+            roomName.textContent = roomId; 
+          assignModal.classList.remove("hidden"); 
+          displayEmployeeSelection();
         }
 
-
-
+         function closeAssignModal(){
+          assignModal.classList.add("hidden"); 
+        }
 
   </script>
 
