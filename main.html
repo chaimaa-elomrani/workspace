@@ -4,15 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workspace Plan</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
-  <style>
-
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50">
 
-  <section class="relative w-full h-screen overflow-hidden">
+
+<body class="bg-gray-50">
+   <button id="menuBtn"
+    onclick="toggleSidebar()"
+    class="fixed top-6 left-6 z-40 bg-white text-gray-700 px-4 py-2.5 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2 hover:bg-gray-50 border border-gray-200"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+    <span class="font-medium text-sm">Menu</span>
+  </button>
+
+   <div id="sidebar" class="sidebar hidden fixed left-0 top-0 h-screen w-96 bg-gradient-to-b from-white to-gray-50 shadow-2xl overflow-y-auto z-50 border-r border-gray-200">
+        <div class="p-6 border-b border-gray-200 bg-white sticky top-0 z-10">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-semibold text-gray-800">Team Members</h2>
+            <button id="closebtn"
+              onclick="closeSidebar()"
+              class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-lg"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <p class="text-sm text-gray-500">Manage your workspace team</p>
+        </div>
+
+        <div class="p-6">
+          <button
+            onclick="showForm()"
+            class="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 font-medium flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Add New Employee
+          </button>
+        </div>
+
+        <div id="usersList" class="px-6 pb-6 space-y-3">
+          <!-- User cards will be inserted here -->
+          <div class="text-center text-gray-400 text-sm py-8">
+            No team members yet
+          </div>
+        </div>
+      </div>
+
+
+  <section class="relative w-full max-w-6xl mx-auto my-12 aspect-[16/9] rounded-xl overflow-hidden shadow-2xl">
     <img
       src="/image/plan-69159a65c5684763515973.jpg"
       alt="worksphere"
@@ -79,7 +124,26 @@
   </section>
 
   <script>
-   
+const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+    const closebtn = document.getElementById('closebtn');
+
+    function toggleSidebar() {
+      sidebar.classList.remove('hidden');
+      setTimeout(() => {
+        sidebar.classList.add('visible');
+      }, 10);
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('visible');
+      setTimeout(() => {
+        sidebar.classList.add('hidden');
+      }, 300);
+    }
+
+  </script>
+
   </script>
 
 </body>

@@ -44,3 +44,18 @@
     .room-area:hover {
       background-color: rgba(59, 130, 246, 0.05);
     }
+
+    .sidebar {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+
+    .sidebar.visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
