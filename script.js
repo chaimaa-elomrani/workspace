@@ -211,7 +211,7 @@
       `;
 
       closeModal();
-  });
+    });
 
     
         let experienceCounter = 0;

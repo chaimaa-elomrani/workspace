@@ -440,9 +440,72 @@ localStorage.setItem("employees", JSON.stringify(employees));
           profile.innerHTML = `<img src="${url}" alt="profile" class="w-16 h-16 text-gray-400">`;
         });
 
-        // experiences 
-          const expGroups = document.querySelectorAll("#experiencesContainer > div");
-          expGroups.forEach((exp) => {
+          const submitedData = {
+          name,
+          role: role.value,
+          photo: photoUrl,
+          email: emailValue,
+          number: phoneValue,
+          experiences: []
+      };
+
+
+       const form = document.getElementById("userForm");
+        const Fullname = document.getElementById("fullName");
+        const role = document.getElementById("role");
+        const photo = document.getElementById("photo");
+        const email = document.getElementById("email");
+        const number = document.getElementById("number");
+
+      form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      let isValid = true;
+
+      const name = document.getElementById('fullName').value;
+      if (!validateName(name)) {
+          document.getElementById('nameError').classList.remove('hidden');
+          isValid = false;
+      } else {
+          document.getElementById('nameError').classList.add('hidden');
+      }
+
+      const emailValue = document.getElementById('email').value;
+      if (!validateEmail(emailValue)) {
+          document.getElementById('emailError').classList.remove('hidden');
+          isValid = false;
+      } else {
+          document.getElementById('emailError').classList.add('hidden');
+      }
+
+      const phoneValue = document.getElementById('number').value;
+      if (!validatePhone(phoneValue)) {
+          document.getElementById('phoneError').classList.remove('hidden');
+          isValid = false;
+      } else {
+          document.getElementById('phoneError').classList.add('hidden');
+      }
+
+      const photoUrl = document.getElementById('photo').value;
+      if (!isValidUrl(photoUrl)) {
+          document.getElementById('photoError').classList.remove('hidden');
+          isValid = false;
+      } else {
+          document.getElementById('photoError').classList.add('hidden');
+      }
+
+      if (!isValid) return;
+
+      const submitedData = {
+          name,
+          role: role.value,
+          photo: photoUrl,
+          email: emailValue,
+          number: phoneValue,
+          experiences: []
+      };
+
+      const expGroups = document.querySelectorAll("#experiencesContainer > div");
+      expGroups.forEach((exp) => {
           const company = exp.querySelector('input[name^="exp_company_"]').value;
           const position = exp.querySelector('input[name^="exp_position_"]').value;
           const start = exp.querySelector('input[name^="exp_start_"]').value;
@@ -450,8 +513,24 @@ localStorage.setItem("employees", JSON.stringify(employees));
 
           submitedData.experiences.push({ company, position, start, end });
       });
-        employers.push(submitedData);
+
+      employers.push(submitedData);
+      localStorage.setItem("employees", JSON.stringify('employee'));
       console.log(employers);
+
+      form.reset();
+      document.getElementById("experiencesContainer").innerHTML = "";
+      document.getElementById("photoPreview").innerHTML = `
+          <svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+      `;
+
+        form.reset();
+      closeModal();
+    });
+        
+
 
 
   </script>
