@@ -322,23 +322,30 @@
 
     
     <!-- Employee Details Modal -->
-   <div id="detailsModal" class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden animate-fadeIn scale-95" >
-    <!-- Header -->
-    <div class="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-6 flex justify-between items-center shadow-md">
-      <h3 class="text-2xl font-bold tracking-wide">Employee Details</h3>
+ <div
+  id="detailsModal"
+  class=" hidden fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+>
+  <div
+    class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-auto animate-fadeIn"
+  >
+   
+    <div class="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
+      <h3 class="text-xl font-semibold text-gray-900">Employee Details</h3>
 
-      <button onclick="closeDetailsModal()" class="text-white hover:bg-white/20 rounded-full p-2 transition-all duration-200">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button
+        onclick="closeDetailsModal()"
+        class="text-gray-600 hover:bg-gray-100 rounded-full p-2 transition"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
     </div>
 
-    <!-- Content -->
-    <div id="detailsContent" class="p-8 space-y-6 text-gray-700">
-      uebdjd
+    <div id="detailsContent" class="p-6 space-y-8 text-gray-800">
+      
     </div>
   </div>
 </div>

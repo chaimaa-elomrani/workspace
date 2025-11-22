@@ -455,15 +455,17 @@ displayEmployees();
     const detailsContent = document.getElementById('detailsContent');
     const  assignedRoom = employeAssignments[emp] || 'walloooooooooo';
     let experiencesPart = '' ;
-    if(employe.experiences  && employe.experiences.lenght > 0){
+    if(employe.experiences  && employe.experiences.length > 0){
     experiencesPart = employe.experiences.map(exp => `
-       <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
-        <div class="flex justify-between items-start mb-2">
-          <h4 class="font-semibold text-gray-800">${exp.position}</h4>
-          <span class="text-xs text-gray-500 bg-white px-2 py-1 rounded">${exp.start} - ${exp.end}</span>
+       <div class="space-y-3">
+            <div class=" p-4 ">
+                <div class="flex justify-between items-start mb-2">
+                  <h4 class="font-semibold text-gray-800">${exp.position}</h4>
+                  <span class="text-xs text-gray-500 bg-white px-2 py-1 rounded">${exp.start} - ${exp.end}</span>
+                </div>
+                <p class="text-sm text-gray-600">${exp.company}</p>
+              </div> 
         </div>
-        <p class="text-sm text-gray-600">${exp.company}</p>
-      </div>
       `).join(''); 
   }else {
     experiencesPart = '<p class="text-gray-500 text-sm italic">No professional experience listed</p>';
@@ -471,86 +473,45 @@ displayEmployees();
 
 console.log(employe);
    detailsContent.innerHTML = `
-   <div class="flex flex-col items-center mb-6 pb-6 border-b">
-      <img 
-        src="${employe.photo}" 
-        alt="${employe.name}"
-        class="w-32 h-32 rounded-full object-cover border-4 border-blue-500 shadow-lg mb-4"
-        onerror="this.src='https://via.placeholder.com/128'"
-      >
-      <h2 class="text-2xl font-bold text-gray-800 mb-1">${employe.name}</h2>
-      <p class="text-lg text-blue-600 font-semibold mb-2">${employe.role}</p>
-      <div class="flex items-center gap-2 text-sm">
-        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
-          📍 ${assignedRoom}
-        </span>
-      </div>
-    </div>
-
-    <div class="mb-6 pb-6 border-b">
-      <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-        </svg>
-        Contact Information
-      </h3>
-      <div class="space-y-3">
-        <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
-          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-          </svg>
-          <div>
-            <p class="text-xs text-gray-500">Email</p>
-            <a href="mailto:${employe.email}" class="text-sm text-blue-600 hover:underline">${employe.email}</a>
-          </div>
-        </div>
-        <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
-          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-          </svg>
-          <div>
-            <p class="text-xs text-gray-500">Phone</p>
-            <a href="tel:${employe.number}" class="text-sm text-blue-600 hover:underline">${employe.number}</a>
-          </div>
+   <div class="flex items-center gap-4 pb-6 border-b">
+        <img
+          src="${employe.photo}"
+          class="w-20 h-20 rounded-full object-cover border border-gray-300 shadow-sm"
+        >
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-900">${employe.name}</h2>
+          <p class="text-gray-600 text-sm">${employe.role}</p>
         </div>
       </div>
-    </div>
 
-    <div class="mb-6">
-      <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-        </svg>
-        Professional Experience
-      </h3>
+      <div class="space-y-4 pb-6 border-b">
+        <h3 class="text-lg font-semibold text-gray-900">Contact Information</h3>
+
+        <div class="flex items-center gap-3">
+          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 12H8m8 0l-4 4m4-4l-4-4M4 6h16M4 18h16"/>
+          </svg>
+          <span class="text-gray-700 text-sm">${employe.email}</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 5a2 2 0 012-2h3.28L10 9l-2.28 1.14a10 10 0 005.58 5.58L15 14l5 1.72A2 2 0 0122 18v1a2 2 0 01-2 2h-1C9.16 21 3 14.84 3 7V5z"/>
+          </svg>
+          <span class="text-gray-700 text-sm">${employe.number}</span>
+        </div>
+      </div>
+
       <div class="space-y-3">
+        <h3 class="text-lg font-semibold text-gray-900">Professional Experience</h3>
+        <p class="text-gray-700 text-sm"></p>
         ${experiencesPart}
       </div>
-    </div>
 
-    <div class="flex gap-3 pt-4 border-t">
-      ${assignedRoom === 'Not assigned' ? `
-        <button
-          onclick="closeDetailsModal(); showAssignModal('conference')"
-          class="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition font-semibold"
-        >
-          Assign to Room
-        </button>
-      ` : `
-        <button
-          onclick="unassignEmployee(${emp}, '${assignedRoom}'); closeDetailsModal();"
-          class="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold"
-        >
-          Remove from ${assignedRoom}
-        </button>
-      `}
-      <button
-        onclick="closeDetailsModal()"
-        class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-semibold"
-      >
-        Close
-      </button>
-    </div>
+     </div>
+   </div>
   `;
  
 }
@@ -560,4 +521,5 @@ function closeDetailsModal() {
     detailsModal.classList.add('hidden');
     detailsModal.classList.remove('flex');
 }
+
 
