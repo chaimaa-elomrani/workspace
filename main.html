@@ -319,6 +319,71 @@
       
       </div>
   <script>
+    // date par defaut 
+    
+    let employees = JSON.parse(localStorage.getItem("employees")) || [
+          {
+      name: "Sophie Martin",
+      role: "Manager",
+      photo: "https://randomuser.me/api/portraits/women/44.jpg",
+      email: "sophie.martin@company.com",
+      number: "06 12 34 56 78",
+      experiences: [
+        {
+          company: "Tech Solutions",
+          position: "Senior Manager",
+          start: "2020-01-15",
+          end: "2024-03-20"
+        },
+        {
+          company: "Digital Corp",
+          position: "Team Lead",
+          start: "2017-06-01",
+          end: "2019-12-31"
+        }
+      ]
+    },
+    {
+      name: "Lucas Dubois",
+      role: "Technicien IT",
+      photo: "https://randomuser.me/api/portraits/men/32.jpg",
+      email: "lucas.dubois@company.com",
+      number: "06 23 45 67 89",
+      experiences: [
+        {
+          company: "IT Services Pro",
+          position: "IT Technician",
+          start: "2019-03-10",
+          end: "2024-01-15"
+        }
+      ]
+    },
+    {
+      name: "Emma Bernard",
+      role: "Réceptionniste",
+      photo: "https://randomuser.me/api/portraits/women/65.jpg",
+      email: "emma.bernard@company.com",
+      number: "06 34 56 78 90",
+      experiences: [
+        {
+          company: "Hotel Plaza",
+          position: "Receptionist",
+          start: "2018-09-01",
+          end: "2023-12-20"
+        },
+        {
+          company: "Office Central",
+          position: "Front Desk",
+          start: "2016-05-15",
+          end: "2018-08-30"
+        }
+      ]
+    },
+];
+
+localStorage.setItem("employees", JSON.stringify(employees));
+
+
 
     // sidebar
     const sidebar = document.getElementById('sidebar');
@@ -375,8 +440,20 @@
           profile.innerHTML = `<img src="${url}" alt="profile" class="w-16 h-16 text-gray-400">`;
         });
 
+        // experiences 
+          const expGroups = document.querySelectorAll("#experiencesContainer > div");
+          expGroups.forEach((exp) => {
+          const company = exp.querySelector('input[name^="exp_company_"]').value;
+          const position = exp.querySelector('input[name^="exp_position_"]').value;
+          const start = exp.querySelector('input[name^="exp_start_"]').value;
+          const end = exp.querySelector('input[name^="exp_end_"]').value;
 
-        
+          submitedData.experiences.push({ company, position, start, end });
+      });
+        employers.push(submitedData);
+      console.log(employers);
+
+
   </script>
 
   </script>
