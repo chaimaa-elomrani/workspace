@@ -530,6 +530,88 @@ localStorage.setItem("employees", JSON.stringify(employees));
       closeModal();
     });
         
+    let experienceCounter = 0;
+
+    // Experiences
+    document
+        .getElementById("addExperience")
+        .addEventListener("click", (e) => {
+        experienceCounter++;
+        const exp_container = document.getElementById(
+            "experiencesContainer"
+        );
+        const content = document.createElement("div");
+        content.className = "bg-gray-50 p-4 rounded-lg space-y-3 relative";
+        content.innerHTML = `
+            <button type="button" class="absolute top-2 right-2 text-red-500 hover:text-red-700 remove-exp" data-exp="${experienceCounter}">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            </button>
+
+            <input 
+            type="text" 
+            name="exp_company_${experienceCounter}"
+            class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Entreprise"
+            required
+            >
+
+            <input 
+            type="text" 
+            name="exp_position_${experienceCounter}"
+            class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Poste occupé"
+            required
+            >
+
+            <div class="grid grid-cols-2 gap-3">
+            <div>
+                <label class="block text-xs text-gray-600 mb-1">Date de début</label>
+                <input 
+                type="date" 
+                name="exp_start_${experienceCounter}"
+                class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 exp-start"
+                required
+                >
+            </div>
+            <div>
+                <label class="block text-xs text-gray-600 mb-1">Date de fin</label>
+                <input 
+                type="date" 
+                name="exp_end_${experienceCounter}"
+                class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 exp-end"
+                data-start="exp_start_${experienceCounter}"
+                required
+                >
+                <span class="text-red-500 text-xs mt-1 hidden date-error">La date de fin doit être après la date de début</span>
+            </div>
+            </div>
+        `;
+        exp_container.appendChild(content);
+        });
+
+         document.addEventListener('click', (e) =>{
+            if(e.target.closest('.remove-exp')){
+              e.target.closest('.bg-gray-50').remove();
+            }
+          });
+
+            function validateName(name) {
+              const regex = /^[a-zA-ZÀ-ÿ\s]{2,}$/;
+              return regex.test(name);
+          }
+
+          function validateEmail(email) {
+              const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              return regex.test(email);
+          }
+
+          function validatePhone(phone) {
+              const regex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+              return regex.test(phone.replace(/\s/g, ''));
+          }
+
 
 
 
