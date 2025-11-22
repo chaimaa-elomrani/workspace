@@ -367,6 +367,16 @@
           assignModal.classList.add("hidden"); 
         }
 
+
+        // img prev in the form 
+         document.getElementById("photo").addEventListener("input", (e) => {
+          const url = e.target.value;
+          const profile = document.getElementById("photoPreview");
+          profile.innerHTML = `<img src="${url}" alt="profile" class="w-16 h-16 text-gray-400">`;
+        });
+
+
+        
   </script>
 
   </script>
