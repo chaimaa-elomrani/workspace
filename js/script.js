@@ -1,5 +1,5 @@
-    // data par defaut 
-    let employees = [];
+    // data par defaut  
+let employees = JSON.parse(localStorage.getItem("employees")) || [];
 
 
     function getRoleName(roleId){
@@ -8,14 +8,20 @@
     return found? found.name: "undefined";
 }
 
+const employeAssignments = {}; 
 
-    async function fetchEmployees(){
+
+   async function fetchEmployees(){
+    if(employees.length === 0) {
         return fetch('/data/data.json')
-        .then(
-            response => response.json()
-        )
-        .then(data => employees = data.employees);
+        .then(response => response.json())
+        .then(data => {
+            employees = data.employees;
+            localStorage.setItem("employees", JSON.stringify(employees));
+        });
     }
+    return Promise.resolve(); 
+}
 
     
   async function fetchingRoles(){
@@ -347,7 +353,7 @@ let rolesList = [];
               const regex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
               return regex.test(phone.replace(/\s/g, ''));
           }
-
+       
 
  function displayEmployees() {
     const usersList = document.getElementById('usersList');
@@ -403,7 +409,6 @@ displayEmployees();
 
   updateRoomColors();
   // assigning employes 
-  const employeAssignments = {}; 
   
 function assignEmployee(empId){
     const employee = employees[empId];
