@@ -10,7 +10,7 @@
 
 
     async function fetchEmployees(){
-        return fetch('data.json')
+        return fetch('/data/data.json')
         .then(
             response => response.json()
         )
@@ -19,7 +19,7 @@
 
     
   async function fetchingRoles(){
-    return fetch('roles.json')
+    return fetch('/data/roles.json')
         .then(response => {
             return response.json(); 
         })
