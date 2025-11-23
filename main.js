@@ -76,12 +76,12 @@ init();
 
  
        const rooms = [
-        { id: 'conferences', name: 'conferences', allowedRoles: [ 'Invited', 'Cleaning Staff', 'Manager']},
-        { id: 'reception', name: 'reception', allowedRoles: ['Receptionist', 'Cleaning Staff' , 'Manager'] },
-        { id: 'servers', name: 'servers', allowedRoles: ['IT Staff', 'Cleaning Staff' , 'Manager'] },
-        { id: 'security', name: 'security', allowedRoles: ['security' ,'Cleaning Staff' , 'Manager']},
-        { id: 'staff', name: 'staff', allowedRoles: ['security' , 'Invited', 'Cleaning Staff', 'Manager','IT Staff','Receptionist']},
-        { id: 'archive', name: 'archive', allowedRoles: ['Manager']},
+        { id: 'conferences', name: 'conferences', allowedRoles: [ 'Invited', 'Cleaning Staff', 'Manager'], capacity: 5, assigned: []},
+        { id: 'reception', name: 'reception', allowedRoles: ['Receptionist', 'Cleaning Staff' , 'Manager'] , capacity: 3, assigned: []},
+        { id: 'servers', name: 'servers', allowedRoles: ['IT Staff', 'Cleaning Staff' , 'Manager'],capacity: 4, assigned: [] },
+        { id: 'security', name: 'security', allowedRoles: ['security' ,'Cleaning Staff' , 'Manager'],capacity: 2, assigned: []},
+        { id: 'staff', name: 'staff', allowedRoles: ['security' , 'Invited', 'Cleaning Staff', 'Manager','IT Staff','Receptionist'],capacity: 6, assigned: []},
+        { id: 'archive', name: 'archive', allowedRoles: ['Manager'],capacity: 1, assigned: []},
       ];    
  
 
@@ -99,7 +99,7 @@ init();
         const roleName = getRoleName(e.role);
         
         return room.allowedRoles.includes(roleName);
-    })
+    });
 
 
     allowedEmployees.forEach((employee, index) => {
@@ -119,7 +119,7 @@ init();
             <p class="text-xs text-gray-500">${employee.email}</p>
           </div>
           <button 
-            onclick="event.stopPropagation(); assignEmployee(${index})"
+            onclick="assignEmployee(${index})"
             class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
           >
             Assign
@@ -242,9 +242,9 @@ let rolesList = [];
 
    employees.push(submitedData);
    console.log(submitedData);
-localStorage.setItem("employees", JSON.stringify(employees)); 
-displayEmployees(); 
-console.log(employees); 
+   localStorage.setItem("employees", JSON.stringify(employees)); 
+   displayEmployees(); 
+   console.log(employees); 
 
       form.reset();
       document.getElementById("experiencesContainer").innerHTML = "";
@@ -387,15 +387,23 @@ console.log(employees);
 displayEmployees();
 // assigning employes 
   const employeAssignments = {}; 
-  function assignEmployee(empId){
-      const employee = employees[empId];
-      const room = document.getElementById(currentRoomId);
 
-      if(!room){
-          console.error('Room not found with ID:', currentRoomId);
-          alert('error in the condition !room');
-          return ;
-      }
+  function assignEmployee(empId){
+    const employee = employees[empId];
+    const room  = document.getElementById(currentRoomId);
+    const roomData = rooms.find(r => r.id === currentRoomId);   
+
+    if (!room) {
+        console.error('Room not found with ID:', currentRoomId);
+        alert('Error: Room element not found!');
+        return;
+    }
+
+    if (!roomData) {
+        console.error('Room data not found:', currentRoomId);
+        return;
+    }
+    
 
       if(employeAssignments[empId]){
           const previousRoom = employeAssignments[empId]; 
@@ -403,6 +411,16 @@ displayEmployees();
 
           if(!confirmation){
               return ; 
+          }
+
+        //   removing the person from assigned array to not mess up with the capacity later
+          const oldRoomData = rooms.find(r => r.id === previousRoom);
+          if(oldRoomData){
+            const index = oldRoomData.assigned.indexOf(empId);
+            if(index > -1){
+                oldRoomData.assigned.splice(index,1);
+                console.log(`Removed from ${previousRoom}. Now has ${oldRoomData.assigned.length}/${oldRoomData.capacity}`);
+            }
           }
 
           const oldRoom = document.getElementById(previousRoom); 
@@ -414,7 +432,15 @@ displayEmployees();
           }
       }
 
-      console.log(room);
+      if(roomData.assigned.length >= roomData.capacity){
+        alert(`Cannot assign to ${currentRoomId}. Room is at full capacity (${roomData.assigned.length}/${roomData.capacity})`);
+        return ;
+    }
+
+     roomData.assigned.push(empId);
+     console.log('added in the assigned array');
+
+      
       const empCard = document.createElement('div');
       empCard.className = 'absolute bottom-2 left-2 bg-white rounded-lg shadow-lg p-2';
       empCard.setAttribute('data-type-id' , empId); 
@@ -430,7 +456,7 @@ displayEmployees();
           <p class="text-xs text-gray-600">${getRoleName(employee.role)}</p>
         </div>
         <button 
-          onclick="event.stopPropagation(); unassignEmployee(${empId}, '${currentRoomId}')"
+          onclick=" unassignEmployee(${empId}, '${currentRoomId}')"
           class="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-md transition-all duration-200 hover:scale-110"
           title="Remove ${employee.name} from ${currentRoomId}"
         >
@@ -453,11 +479,17 @@ displayEmployees();
  function unassignEmployee(empId, roomId){
     const room = document.getElementById(roomId);
     const card = room.querySelector(`[data-type-id = "${empId}"]`); 
+    const roomData = rooms.find(r => r.id === roomId);
 
     if(card){
       card.remove(); 
       delete employeAssignments[empId];
-      console.log('removed successfuly');
+      
+      if(roomData){
+          const index = roomData.assigned.indexOf(empId);
+          console.log('removed ')
+        }
+        console.log('removed successfuly');
     }
   }
   
