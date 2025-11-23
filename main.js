@@ -350,21 +350,25 @@ let rolesList = [];
           }
 
 
-   function displayEmployees() {
+ function displayEmployees() {
     const usersList = document.getElementById('usersList');
     usersList.innerHTML = '';
     
-    if (employees.length === 0) {
-        usersList.innerHTML = '<div class="text-center text-gray-400 text-sm py-8">No team members yet</div>';
+    const unassignedEmployees = employees.filter((emp, index) => !employeAssignments[index]);
+    
+    if (unassignedEmployees.length === 0) {
+        usersList.innerHTML = '<div class="text-center text-gray-400 text-sm py-8">No unassigned team members</div>';
         return;
     }
     
-    employees.forEach((employee, index) => {
+    unassignedEmployees.forEach((employee) => {
+        const originalIndex = employees.indexOf(employee);
+        
         const card = document.createElement('div');
-        card.className = 'bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow d uration-300 p-2 border border-gray-200 hover:border-blue-400 cursor-pointer';
+        card.className = 'bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-2 border border-gray-200 hover:border-blue-400 cursor-pointer';
         
         card.innerHTML = `
-            <div onclick = "details(${index})" class="flex items-center gap-3 mb-3">
+            <div onclick="details(${originalIndex})" class="flex items-center gap-3 mb-3">
                 <img 
                     src="${employee.photo}" 
                     alt="${employee.name}"
@@ -378,10 +382,8 @@ let rolesList = [];
             </div>  
         `;
         usersList.appendChild(card); 
-
     });
 }
-
 
 
 displayEmployees();
@@ -430,6 +432,7 @@ displayEmployees();
                   oldCard.remove();
               }
           }
+          
       }
 
       if(roomData.assigned.length >= roomData.capacity){
@@ -471,7 +474,7 @@ displayEmployees();
       room.appendChild(empCard);
       employeAssignments[empId] = currentRoomId; 
       closeAssignModal(); 
-
+      displayEmployees();
   }
 
 
@@ -491,6 +494,7 @@ displayEmployees();
         }
         console.log('removed successfuly');
     }
+    displayEmployees();
   }
   
 
