@@ -1,0 +1,28 @@
+{
+  "roles": [
+    {
+      "id": 1,
+      "name": "Receptionist"
+    },
+    {
+      "id": 2,
+      "name": "IT Staff"
+    },
+    {
+      "id": 3,
+      "name": "Invited"
+    },
+    {
+      "id": 4,
+      "name": "Security"
+    },
+    {
+      "id": 5,
+      "name": "Cleaning Staff"
+    },
+    {
+      "id": 6,
+      "name": "Manager"
+    }
+  ]
+}

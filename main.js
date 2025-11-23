@@ -523,3 +523,48 @@ function closeDetailsModal() {
 }
 
 
+
+
+function fetchingRoles(){
+    fetch('roles.json')
+        .then(response => {
+            return response.json(); 
+        })
+    .then(data => {
+    //  console.log(data);
+    const roles = document.getElementById('role');
+    roles.innerHTML= `<option value="">Sélectionner un rôle</option>`;
+    console.log(roles);
+    data.roles.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item.id ;
+        option.textContent = item.name; 
+        roles.appendChild(option); 
+    });
+    });
+    
+}
+
+fetchingRoles();
+
+
+
+
+
+
+
+
+// filter function
+// const role = employees.role ;
+function filterByrole(){
+    employees.forEach((employee)=> {
+        const role = employee.role ;
+        
+        // role.forEach((e) => {
+
+            console.log(role);
+        // })
+    })
+}
+
+filterByrole();
