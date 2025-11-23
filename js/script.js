@@ -211,7 +211,7 @@ let rolesList = [];
       }
 
       const photoUrl = document.getElementById('photo').value;
-      if (!isValidUrl(photoUrl)) {
+      if (!photo) {
           document.getElementById('photoError').classList.remove('hidden');
           isValid = false;
       } else {
@@ -223,7 +223,7 @@ let rolesList = [];
       const submitedData = {
           name,
           role: role.value,
-          photo: photoUrl,
+          photo: photoUrl || 'https://img.freepik.com/vecteurs-libre/femme-aux-longs-cheveux-bruns-chemise-rose_90220-2940.jpg?semt=ais_hybrid&w=740&q=80',
           email: emailValue,
           number: phoneValue,
           experiences: []
@@ -593,6 +593,17 @@ console.log(employe);
       </div>
 
      </div>
+     <button 
+  onclick="deleteEmployee(${emp})"
+  class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+  title="Delete ${employe.name}"
+>
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+  </svg>
+  Delete
+</button>
    </div>
   `;
  
@@ -616,3 +627,6 @@ function filterByRole(roleId) {
 };
 
 console.log(filterByRole(4));
+
+
+
