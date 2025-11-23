@@ -1,5 +1,4 @@
     // data par defaut 
-    localStorage.removeItem("employees");
     let employees = [];
 
 

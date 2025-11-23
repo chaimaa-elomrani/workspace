@@ -1,61 +1,88 @@
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
-    
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+.sidebar {
+    transition: transform 0.3s ease-in-out;
+}
+.sidebar.visible {
+    transform: translateX(0);
+}
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
 
+.room-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.room-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #1f2937;
+    z-index: 10;
+}
+
+.add-button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    z-index: 10;
+}
+
+@media (max-width: 1024px) {
     .room-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #1f2937;
-      opacity: 0.7;
-      transition: opacity 0.2s;
+    font-size: 0.75rem;
     }
-
-    .room-area:hover .room-label {
-      opacity: 1;
-    }
-
     .add-button {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      transition: all 0.2s ease;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
     }
+}
 
-    .add-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    .room-area {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .room-area:hover {
-      background-color: rgba(59, 130, 246, 0.05);
-    }
-
+@media (max-width: 768px) {
     .sidebar {
-      transition: transform 0.3s ease, opacity 0.3s ease;
+    width: 100% !important;
+    max-width: 100% !important;
     }
-
-    .sidebar.hidden {
-      transform: translateX(-100%);
-      opacity: 0;
+    
+    .room-label {
+    font-size: 0.65rem;
     }
-
-
-    .sidebar.visible {
-      transform: translateX(0);
-      opacity: 1;
+    
+    .add-button {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    top: 2px;
+    right: 2px;
     }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    #menuBtn {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.5rem 0.75rem;
+    }
+    
+    .room-label {
+    font-size: 0.7rem;
+    top: 5px;
+    left: 5px;
+    }
+    
+    .add-button {
+    width: 24px;
+    height: 24px;
+    top: 5px;
+    right: 5px;
+    }
+}
