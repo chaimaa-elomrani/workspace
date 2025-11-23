@@ -74,13 +74,35 @@ init();
     }
 
 
+ 
+       const rooms = [
+        { id: 'conferences', name: 'conferences', allowedRoles: [ 'Invited', 'Cleaning Staff', 'Manager']},
+        { id: 'reception', name: 'reception', allowedRoles: ['Receptionist', 'Cleaning Staff' , 'Manager'] },
+        { id: 'servers', name: 'servers', allowedRoles: ['IT Staff', 'Cleaning Staff' , 'Manager'] },
+        { id: 'security', name: 'security', allowedRoles: ['security' ,'Cleaning Staff' , 'Manager']},
+        { id: 'staff', name: 'staff', allowedRoles: ['security' , 'Invited', 'Cleaning Staff', 'Manager','IT Staff','Receptionist']},
+        { id: 'archive', name: 'archive', allowedRoles: ['Manager']},
+      ];    
+ 
+
     const listContainer = document.getElementById('assignModal');
-      
-    function displayEmployeeSelection(){
+
+    
+    function displayEmployeeSelection(roomId){  
     const listContainer = document.getElementById('employeeSelectionList');
     listContainer.innerHTML = ''; 
     
-    employees.forEach((employee, index) => {
+    const room = rooms.find(room => room.id === roomId);
+    if(!room) return ; 
+
+    const allowedEmployees = employees.filter(e => {
+        const roleName = getRoleName(e.role);
+        
+        return room.allowedRoles.includes(roleName);
+    })
+
+
+    allowedEmployees.forEach((employee, index) => {
       const card = document.createElement('div');
       card.className = 'bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer';
       card.innerHTML = `
@@ -138,7 +160,7 @@ let rolesList = [];
             const roomName = document.getElementById('assignRoomName');
             roomName.textContent = roomId; 
           assignModal.classList.remove("hidden"); 
-          displayEmployeeSelection();
+          displayEmployeeSelection(roomId);
         }
 
          function closeAssignModal(){
