@@ -386,14 +386,31 @@ let rolesList = [];
 
 
 displayEmployees();
-// assigning employes 
-  const employeAssignments = {}; 
 
+
+ function updateRoomColors() {
+    rooms.forEach(roomData => {
+      const roomElement = document.getElementById(roomData.id);
+      if (roomElement) {
+        if (roomData.assigned.length === 0) {
+          roomElement.style.backgroundColor = 'rgba(239, 68, 68, 0.3)'; 
+        } else {
+          roomElement.style.backgroundColor = ''; 
+        }
+      }
+    });
+  }
+
+  updateRoomColors();
+  // assigning employes 
+  const employeAssignments = {}; 
+  
   function assignEmployee(empId){
     const employee = employees[empId];
     const room  = document.getElementById(currentRoomId);
     const roomData = rooms.find(r => r.id === currentRoomId);   
-
+    
+  
     if (!room) {
         console.error('Room not found with ID:', currentRoomId);
         alert('Error: Room element not found!');
@@ -474,6 +491,8 @@ displayEmployees();
       employeAssignments[empId] = currentRoomId; 
       closeAssignModal(); 
       displayEmployees();
+        updateRoomColors();
+
   }
 
 
