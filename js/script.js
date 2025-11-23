@@ -405,12 +405,11 @@ displayEmployees();
   // assigning employes 
   const employeAssignments = {}; 
   
-  function assignEmployee(empId){
+function assignEmployee(empId){
     const employee = employees[empId];
-    const room  = document.getElementById(currentRoomId);
+    const room = document.getElementById(currentRoomId);
     const roomData = rooms.find(r => r.id === currentRoomId);   
     
-  
     if (!room) {
         console.error('Room not found with ID:', currentRoomId);
         alert('Error: Room element not found!');
@@ -422,79 +421,90 @@ displayEmployees();
         return;
     }
     
+    if(employeAssignments[empId]){
+        const previousRoom = employeAssignments[empId]; 
+        const confirmation = confirm(`${employee.name} is currently in ${previousRoom}, move them to ${currentRoomId}?`);
 
-      if(employeAssignments[empId]){
-          const previousRoom = employeAssignments[empId]; 
-          const confirmation = confirm(`${employee.name} is currently in ${previousRoom}, move them to ${currentRoomId}?`);
+        if(!confirmation){
+            return; 
+        }
 
-          if(!confirmation){
-              return ; 
-          }
-
-        //   removing the person from assigned array to not mess up with the capacity later
-          const oldRoomData = rooms.find(r => r.id === previousRoom);
-          if(oldRoomData){
+        const oldRoomData = rooms.find(r => r.id === previousRoom);
+        if(oldRoomData){
             const index = oldRoomData.assigned.indexOf(empId);
             if(index > -1){
-                oldRoomData.assigned.splice(index,1);
+                oldRoomData.assigned.splice(index, 1);
                 console.log(`Removed from ${previousRoom}. Now has ${oldRoomData.assigned.length}/${oldRoomData.capacity}`);
             }
-          }
+        }
 
-          const oldRoom = document.getElementById(previousRoom); 
-          if(oldRoom){
-              const oldCard = document.querySelector(`[data-type-id = "${empId}"]`);
-              if(oldCard){
-                  oldCard.remove();
-              }
-          }
-          
-      }
-
-      if(roomData.assigned.length >= roomData.capacity){
-        alert(`Cannot assign to ${currentRoomId}. Room is at full capacity (${roomData.assigned.length}/${roomData.capacity})`);
-        return ;
+        const oldRoom = document.getElementById(previousRoom); 
+        if(oldRoom){
+            const oldCard = document.querySelector(`[data-type-id="${empId}"]`);
+            if(oldCard){
+                oldCard.remove();
+            }
+        }
     }
 
-     roomData.assigned.push(empId);
-     console.log('added in the assigned array');
+    if(roomData.assigned.length >= roomData.capacity){
+        alert(`Cannot assign to ${currentRoomId}. Room is at full capacity (${roomData.assigned.length}/${roomData.capacity})`);
+        return;
+    }
 
-      
-      const empCard = document.createElement('div');
-      empCard.className = 'absolute bottom-2 left-2 bg-white rounded-lg shadow-lg p-2';
-      empCard.setAttribute('data-type-id' , empId); 
-      empCard.innerHTML = `
-          <div class="flex items-center gap-2">
-        <img 
-          src="${employee.photo}" 
-          alt="${employee.name}"  
-          class="w-10 h-10 rounded-full object-cover"
-        >
-       <div class="flex-1" >
-          <p  class="text-xs font-semibold text-gray-800 cursor-pointer hover:text-blue-600">${employee.name}</p>
-          <p class="text-xs text-gray-600">${getRoleName(employee.role)}</p>
+    roomData.assigned.push(empId);
+    console.log('added in the assigned array');
+
+    const positions = [
+        { bottom: '8px', left: '8px' },      
+        { bottom: '8px', right: '8px' },     
+        { top: '8px', left: '8px' },         
+        { top: '8px', right: '8px' },      
+        { bottom: '8px', left: '50%', transform: 'translateX(-50%)' },  
+        { top: '8px', left: '50%', transform: 'translateX(-50%)' }      
+    ];
+
+    const currentPosition = roomData.assigned.length - 1;
+    const position = positions[currentPosition % positions.length];
+
+    const empCard = document.createElement('div');
+    empCard.className = 'absolute bg-white rounded-lg shadow-lg p-2';
+    empCard.setAttribute('data-type-id', empId); 
+    
+    Object.keys(position).forEach(key => {
+        empCard.style[key] = position[key];
+    });
+
+    empCard.innerHTML = `
+        <div class="flex items-center gap-2">
+            <img 
+                src="${employee.photo}" 
+                alt="${employee.name}"  
+                class="w-10 h-10 rounded-full object-cover"
+            >
+            <div class="flex-1">
+                <p class="text-xs font-semibold text-gray-800 cursor-pointer hover:text-blue-600">${employee.name}</p>
+                <p class="text-xs text-gray-600">${getRoleName(employee.role)}</p>
+            </div>
+            <button 
+                onclick="unassignEmployee(${empId}, '${currentRoomId}')"
+                class="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-md transition-all duration-200 hover:scale-110"
+                title="Remove ${employee.name} from ${currentRoomId}"
+            >
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
         </div>
-        <button 
-          onclick=" unassignEmployee(${empId}, '${currentRoomId}')"
-          class="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center shadow-md transition-all duration-200 hover:scale-110"
-          title="Remove ${employee.name} from ${currentRoomId}"
-        >
-          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-      </div>
-      `;
+    `;
 
-      room.style.position = 'relative';
-      room.appendChild(empCard);
-      employeAssignments[empId] = currentRoomId; 
-      closeAssignModal(); 
-      displayEmployees();
-        updateRoomColors();
-
-  }
-
+    room.style.position = 'relative';
+    room.appendChild(empCard);
+    employeAssignments[empId] = currentRoomId; 
+    closeAssignModal(); 
+    displayEmployees();
+    updateRoomColors();
+}
 
 //   unassign employe 
  function unassignEmployee(empId, roomId){
