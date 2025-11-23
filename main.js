@@ -103,7 +103,7 @@ localStorage.setItem("employees", JSON.stringify(employees));
           >
           <div class="flex-1" onclick = "details(${index})">
             <h4 class="font-semibold text-gray-800">${employee.name}</h4>
-            <p class="text-sm text-blue-600">${employee.role}</p>
+            <p class="text-sm text-blue-600">${getRoleName(employee.role)}</p>
             <p class="text-xs text-gray-500">${employee.email}</p>
           </div>
           <button 
@@ -122,6 +122,33 @@ localStorage.setItem("employees", JSON.stringify(employees));
     });
    
   }
+
+  
+let rolesList = []; 
+
+function fetchingRoles(){
+    fetch('roles.json')
+        .then(response => {
+            return response.json(); 
+        })
+    .then(data => {
+        rolesList = data.roles;
+    const roles = document.getElementById('role');
+    roles.innerHTML= `<option value="">Sélectionner un rôle</option>`;
+    console.log(roles);
+    data.roles.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item.id ;
+        option.textContent = item.name; 
+        roles.appendChild(option); 
+    });
+    });
+    
+    displayEmployees(); 
+
+}
+
+fetchingRoles();
     
 
     // assign userform
@@ -225,8 +252,8 @@ localStorage.setItem("employees", JSON.stringify(employees));
       });
 
    employees.push(submitedData);
-localStorage.setItem("employees", JSON.stringify(employees)); // ✅ CORRECT - save the array
-displayEmployees(); // Refresh the employee list
+localStorage.setItem("employees", JSON.stringify(employees)); 
+displayEmployees(); 
 console.log(employees); 
 
       form.reset();
@@ -356,7 +383,7 @@ console.log(employees);
                 >
                 <div class="flex-1">
                     <h3 class="font-semibold text-gray-800 text-sm">${employee.name}</h3>
-                    <p class="text-xs text-blue-600 font-medium">${employee.role}</p>
+                    <p class="text-xs text-blue-600 font-medium">${getRoleName(employee.role)}</p>
                 </div>
             </div>  
         `;
@@ -409,7 +436,7 @@ displayEmployees();
         >
        <div class="flex-1" >
           <p  class="text-xs font-semibold text-gray-800 cursor-pointer hover:text-blue-600">${employee.name}</p>
-          <p class="text-xs text-gray-600">${employee.role}</p>
+          <p class="text-xs text-gray-600">${getRoleName(employee.role)}</p>
         </div>
         <button 
           onclick="event.stopPropagation(); unassignEmployee(${empId}, '${currentRoomId}')"
@@ -480,7 +507,7 @@ console.log(employe);
         >
         <div>
           <h2 class="text-2xl font-semibold text-gray-900">${employe.name}</h2>
-          <p class="text-gray-600 text-sm">${employe.role}</p>
+          <p class="text-gray-600 text-sm">${getRoleName(employe.role)}</p>
         </div>
       </div>
 
@@ -525,46 +552,25 @@ function closeDetailsModal() {
 
 
 
-function fetchingRoles(){
-    fetch('roles.json')
-        .then(response => {
-            return response.json(); 
-        })
-    .then(data => {
-    //  console.log(data);
-    const roles = document.getElementById('role');
-    roles.innerHTML= `<option value="">Sélectionner un rôle</option>`;
-    console.log(roles);
-    data.roles.forEach((item) => {
-        const option = document.createElement('option');
-        option.value = item.id ;
-        option.textContent = item.name; 
-        roles.appendChild(option); 
-    });
-    });
-    
+
+
+function getRoleName(roleId){
+  if(!rolesList.length) return "Loading...";
+  const found = rolesList.find(e => e.id == roleId);
+  return found? found.name: "undefined";
 }
-
-fetchingRoles();
-
-
-
-
 
 
 
 
 // filter function
 // const role = employees.role ;
-function filterByrole(){
-    employees.forEach((employee)=> {
-        const role = employee.role ;
-        
-        // role.forEach((e) => {
+// function filterByrole(){
+//     employees.forEach((employee)=> {
+//         const role = employee.role ;
+//             console.log(role);
+//         // })
+//     })
+// }
 
-            console.log(role);
-        // })
-    })
-}
-
-filterByrole();
+// filterByrole();;
