@@ -1,66 +1,56 @@
     // data par defaut 
     localStorage.removeItem("employees");
-    let employees = JSON.parse(localStorage.getItem("employees")) || [
-          {
-      name: "Sophie Martin",
-      role: "Manager",
-      photo: "https://randomuser.me/api/portraits/women/44.jpg",
-      email: "sophie.martin@company.com",
-      number: "06 12 34 56 78",
-      experiences: [
-        {
-          company: "Tech Solutions",
-          position: "Senior Manager",
-          start: "2020-01-15",
-          end: "2024-03-20"
-        },
-        {
-          company: "Digital Corp",
-          position: "Team Lead",
-          start: "2017-06-01",
-          end: "2019-12-31"
-        }
-      ]
-    },
-    {
-      name: "Lucas Dubois",
-      role: "Technicien IT",
-      photo: "https://randomuser.me/api/portraits/men/32.jpg",
-      email: "lucas.dubois@company.com",
-      number: "06 23 45 67 89",
-      experiences: [
-        {
-          company: "IT Services Pro",
-          position: "IT Technician",
-          start: "2019-03-10",
-          end: "2024-01-15"
-        }
-      ]
-    },
-    {
-      name: "Emma Bernard",
-      role: "Réceptionniste",
-      photo: "https://randomuser.me/api/portraits/women/65.jpg",
-      email: "emma.bernard@company.com",
-      number: "06 34 56 78 90",
-      experiences: [
-        {
-          company: "Hotel Plaza",
-          position: "Receptionist",
-          start: "2018-09-01",
-          end: "2023-12-20"
-        },
-        {
-          company: "Office Central",
-          position: "Front Desk",
-          start: "2016-05-15",
-          end: "2018-08-30"
-        }
-      ]
-    },
-];
+    let employees = [];
 
-localStorage.setItem("employees", JSON.stringify(employees));
+
+    function getRoleName(roleId){
+    if(!rolesList.length) return "Loading...";
+    const found = rolesList.find(e => e.id == roleId);
+    return found? found.name: "undefined";
+}
+
+
+    async function fetchEmployees(){
+        return fetch('data.json')
+        .then(
+            response => response.json()
+        )
+        .then(data => employees = data.employees);
+    }
+
+    
+  async function fetchingRoles(){
+    return fetch('roles.json')
+        .then(response => {
+            return response.json(); 
+        })
+    .then(data => {
+        rolesList = data.roles;
+    const roles = document.getElementById('role');
+    roles.innerHTML= `<option value="">Sélectionner un rôle</option>`;
+    console.log(roles);
+    data.roles.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item.id ;
+        option.textContent = item.name; 
+        roles.appendChild(option); 
+    });
+    });
+    
+    displayEmployees(); 
+
+}
+
+fetchingRoles();
+    
+
+async function init(){
+    await Promise.all([fetchingRoles(), fetchEmployees()]);
+    displayEmployees();
+}
+
+init();
+  localStorage.setItem("employees", JSON.stringify(employees));
 
 
 
@@ -126,29 +116,6 @@ localStorage.setItem("employees", JSON.stringify(employees));
   
 let rolesList = []; 
 
-function fetchingRoles(){
-    fetch('roles.json')
-        .then(response => {
-            return response.json(); 
-        })
-    .then(data => {
-        rolesList = data.roles;
-    const roles = document.getElementById('role');
-    roles.innerHTML= `<option value="">Sélectionner un rôle</option>`;
-    console.log(roles);
-    data.roles.forEach((item) => {
-        const option = document.createElement('option');
-        option.value = item.id ;
-        option.textContent = item.name; 
-        roles.appendChild(option); 
-    });
-    });
-    
-    displayEmployees(); 
-
-}
-
-fetchingRoles();
     
 
     // assign userform
@@ -252,6 +219,7 @@ fetchingRoles();
       });
 
    employees.push(submitedData);
+   console.log(submitedData);
 localStorage.setItem("employees", JSON.stringify(employees)); 
 displayEmployees(); 
 console.log(employees); 
@@ -391,6 +359,7 @@ console.log(employees);
 
     });
 }
+
 
 
 displayEmployees();
@@ -553,24 +522,11 @@ function closeDetailsModal() {
 
 
 
-
-function getRoleName(roleId){
-  if(!rolesList.length) return "Loading...";
-  const found = rolesList.find(e => e.id == roleId);
-  return found? found.name: "undefined";
-}
-
-
-
-
 // filter function
-// const role = employees.role ;
-// function filterByrole(){
-//     employees.forEach((employee)=> {
-//         const role = employee.role ;
-//             console.log(role);
-//         // })
-//     })
-// }
+function filterByRole(roleId) {
+    const filtered = employees.filter(e => e.role == roleId);
+    console.log(filtered);
+    return filtered;
+};
 
-// filterByrole();;
+console.log(filterByRole(4));

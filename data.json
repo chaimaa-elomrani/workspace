@@ -1,0 +1,44 @@
+{
+  "employees": [
+    {
+      "name": "Sophie Martin",
+      "role": 6,
+      "photo": "https://randomuser.me/api/portraits/women/44.jpg",
+      "email": "sophie.martin@company.com",
+      "number": "0612345678",
+      "experiences": [
+        { "company": "Tech Solutions", "position": "Senior Manager", "start": "2020-01-15", "end": "2024-03-20" },
+        { "company": "Digital Corp", "position": "Team Lead", "start": "2017-06-01", "end": "2019-12-31" }
+      ]
+    },
+    {
+      "name": "Lucas Dubois",
+      "role": 2,
+      "photo": "https://randomuser.me/api/portraits/men/32.jpg",
+      "email": "lucas.dubois@company.com",
+      "number": "0623456789",
+      "experiences": [
+        { "company": "IT Services Pro", "position": "IT Technician", "start": "2019-03-10", "end": "2024-01-15" }
+      ]
+    },
+    {
+      "name": "Emma Bernard",
+      "role": 1,
+      "photo": "https://randomuser.me/api/portraits/women/65.jpg",
+      "email": "emma.bernard@company.com",
+      "number": "0634567890",
+      "experiences": [
+        { "company": "Hotel Plaza", "position": "Receptionist", "start": "2018-09-01", "end": "2023-12-20" },
+        { "company": "Office Central", "position": "Front Desk", "start": "2016-05-15", "end": "2018-08-30" }
+      ]
+    },
+    {
+      "name": "Marc Leroy",
+      "role": 4,
+      "photo": "https://randomuser.me/api/portraits/men/76.jpg",
+      "email": "marc.leroy@company.com",
+      "number": "0645678901",
+      "experiences": []
+    }
+  ]
+}
